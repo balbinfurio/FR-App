@@ -38,22 +38,17 @@ class RegisteredUserController extends Controller
 
         // Verificar si hay usuarios con el rol de administrador
         $hasAdmin = User::where('role', '=', User::ROLE_ADMIN)->exists();
-        // dd($hasAdmin);
 
-        
-        
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            // 'role' => $userRole,
         ]);
         
         if (!$hasAdmin) {
             $user->role = User::ROLE_ADMIN;
             $user->save();
         } 
-        
         
         event(new Registered($user));
 
