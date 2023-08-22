@@ -18,6 +18,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::middleware(['auth', 'admin'])->group(function () {
+    // Rutas solo accesibles para administradores (creación de preguntas y respuestas)
+});
+
+Route::middleware(['auth', 'user'])->group(function () {
+    // Rutas accesibles para usuarios normales (responder preguntas)
+});
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
