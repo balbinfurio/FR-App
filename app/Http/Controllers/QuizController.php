@@ -27,12 +27,9 @@ class QuizController extends Controller
             ->where('is_correct', 1)
             ->count();
 
-        $answerPercentage = ($correctOptionsCount/$totalQuestions) * 100;
+        $answerPercentage = ($correctOptionsCount / $totalQuestions) * 100;
 
         $answerScore = ($answerPercentage / 100) * 5;
-
-        // dd($answerScore);
-        
 
         // Obtener todas las preguntas con sus respuestas correctas
         $questionsWithCorrectAnswers = [];
@@ -43,13 +40,8 @@ class QuizController extends Controller
                 $questionsWithCorrectAnswers[$question->id] = $correctOption;
             }
         }
-        // dd($questionsWithCorrectAnswers);
 
-        return redirect()->route('make-quiz')
-            ->with('answerScore', $answerScore)
-            ->with('questionsWithCorrectAnswers', $questionsWithCorrectAnswers);
-
-
+        return view('make-quiz', compact('questions', 'questionsWithCorrectAnswers', 'answerScore'));
     }
 }
 

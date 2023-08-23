@@ -39,19 +39,24 @@
                         <div id="timer" class="text-lg font-semibold mt-4 mb-2"></div>
                     </div>
                 </div>
-                <h3 class="text-lg font-semibold mt-4 mb-2">{{ __('Results') }}</h3>
-                
-                @if (session('answerScore') !== null)
-                    <p>Your score: {{ session('answerScore') }}</p>
-                @endif
-                @if (isset($questionsWithCorrectAnswers) && count($questionsWithCorrectAnswers) > 0)
-                <h3 class="text-lg font-semibold mt-4 mb-2">{{ __('Correct Answers') }}</h3>
-                @foreach ($questionsWithCorrectAnswers as $questionId => $correctOption)
-                    <p>Question: {{ $questions->find($questionId)->question }}</p>
-                    <p>Correct Answer: {{ $correctOption->option }}</p>
-                    <hr>
-                @endforeach
-            @endif
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <h3 class="text-lg font-semibold mt-4 mb-2">{{ __('Results') }}</h3>
+                    @if (isset($answerScore))
+                        <p class="mb-4 text-lg">Your score: {{ $answerScore }}</p>
+                    @endif
+                    @if (isset($questionsWithCorrectAnswers) && count($questionsWithCorrectAnswers) > 0)
+                        <h3 class="text-lg font-semibold mt-4 mb-2">{{ __('Correct Answers') }}</h3>
+                        <div class="mb-4">
+                            @foreach ($questionsWithCorrectAnswers as $questionId => $correctOption)
+                                <p class="mb-2">Question: {{ $questions->find($questionId)->question }}</p>
+                                <p class="mb-2">Correct Answer: {{ $correctOption->option }}</p>
+                                <hr class="my-2">
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+
+
             </div>
         </div>
     </div>
