@@ -20,7 +20,7 @@ class QuizController extends Controller
     {
         $selectedAnswers = $request->input('answers');
 
-        $totalQuestions = count($selectedAnswers);
+        $totalQuestions = Question::count();
 
         // Obtener la cantidad de opciones de respuesta con is_correct = 1
         $correctOptionsCount = Option::whereIn('id', $selectedAnswers)
