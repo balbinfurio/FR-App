@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'question', // Agrega 'question' a esta lista
+        // ... otros campos que puedas tener ...
+    ];
 }
