@@ -7,6 +7,7 @@ use App\Http\Middleware\CheckUserRole;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\OptionController;
+use App\Http\Controllers\QuizController;
 
 
 /*
@@ -31,7 +32,6 @@ Route::middleware(['auth', CheckAdminRole::class])->group(function () {
 
     Route::get('/questions-create', [QuestionController::class, 'create'])->name('questions.create');
     Route::post('/questions/store', [QuestionController::class, 'store'])->name('questions.store');
-    Route::post('/options', [OptionController::class, 'store'])->name('options.store');
 
 });
 
@@ -39,6 +39,10 @@ Route::middleware(['auth', CheckUserRole::class])->group(function () {
     Route::get('/make-quiz', function () {
         return view('make-quiz');
     })->middleware(['verified'])->name('make-quiz');
+
+    Route::get('/make-quiz', [QuizController::class, 'showQuiz'])->name('make-quiz');
+    Route::post('/submit-quiz', [QuizController::class, 'submitQuiz'])->name('submit-quiz');
+
 });
 
 Route::middleware('auth')->group(function () {

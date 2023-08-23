@@ -13,4 +13,9 @@ class Question extends Model
         'question', // Agrega 'question' a esta lista
         // ... otros campos que puedas tener ...
     ];
+
+    public function options()
+    {
+        return $this->hasMany(Option::class);
+    }
 }
