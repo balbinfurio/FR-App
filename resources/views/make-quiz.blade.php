@@ -40,9 +40,18 @@
                     </div>
                 </div>
                 <h3 class="text-lg font-semibold mt-4 mb-2">{{ __('Results') }}</h3>
+                
                 @if (session('answerScore') !== null)
                     <p>Your score: {{ session('answerScore') }}</p>
                 @endif
+                @if (isset($questionsWithCorrectAnswers) && count($questionsWithCorrectAnswers) > 0)
+                <h3 class="text-lg font-semibold mt-4 mb-2">{{ __('Correct Answers') }}</h3>
+                @foreach ($questionsWithCorrectAnswers as $questionId => $correctOption)
+                    <p>Question: {{ $questions->find($questionId)->question }}</p>
+                    <p>Correct Answer: {{ $correctOption->option }}</p>
+                    <hr>
+                @endforeach
+            @endif
             </div>
         </div>
     </div>

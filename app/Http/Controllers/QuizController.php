@@ -34,7 +34,22 @@ class QuizController extends Controller
         // dd($answerScore);
         
 
-        return redirect()->route('make-quiz')->with('answerScore', $answerScore);
+        // Obtener todas las preguntas con sus respuestas correctas
+        $questionsWithCorrectAnswers = [];
+        $questions = Question::with('options')->get();
+        foreach ($questions as $question) {
+            $correctOption = $question->options->where('is_correct', 1)->first();
+            if ($correctOption) {
+                $questionsWithCorrectAnswers[$question->id] = $correctOption;
+            }
+        }
+        // dd($questionsWithCorrectAnswers);
+
+        return redirect()->route('make-quiz')
+            ->with('answerScore', $answerScore)
+            ->with('questionsWithCorrectAnswers', $questionsWithCorrectAnswers);
+
+
     }
 }
 
